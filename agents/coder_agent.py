@@ -6,7 +6,7 @@ class CoderAgentFactory:
 
     def __init__(self):
         self.llm = LLM(
-            model="groq/llama-3.1-8b-instant",  
+            model="groq/llama-3.3-70b-versatile",  
             api_key=os.getenv("GROQ_API_KEY"),
             temperature=0.2,
             stream=True
@@ -28,12 +28,14 @@ class CoderAgentFactory:
                 f"You are to implement the following feature request in Python:\n\n"
                 f"{prompt}\n\n"
                 "Requirements:\n"
-                "- Use clean, modular functions.\n"
+                "- Use clean, modular functions with clear separation of concerns.\n"
+                "- Enforce STRICT type hinting (PEP 484) for all functions and classes.\n"
                 "- Add inline docstrings for all public functions and classes.\n"
                 "- Follow PEP 8 style guidelines.\n"
-                "- Include basic error handling.\n"
-                "- Do NOT include test cases in this output."
+                "- Include robust error handling (try/except blocks).\n"
+                "- Do NOT include test cases or example usage.\n"
+                "- Output ONLY the raw Python code. No markdown, no explanations, no code fences."
             ),
-            expected_output="A complete and runnable Python script in valid syntax.",
+            expected_output="Raw Python source code only. No markdown formatting.",
             agent=agent
         )

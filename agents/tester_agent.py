@@ -6,7 +6,7 @@ class TesterAgentFactory:
 
     def __init__(self):
         self.llm = LLM(
-            model="groq/llama-3.1-8b-instant",
+            model="groq/llama-3.3-70b-versatile",
             api_key=os.getenv("GROQ_API_KEY"),
             temperature=0.3,
             stream=True
@@ -25,14 +25,21 @@ class TesterAgentFactory:
     def get_task(self, agent: Agent, code: str) -> Task:
         return Task(
             description=(
-                "Write pytest-compatible unit tests for the following Python code.\n\n"
+                "Write a comprehensive pytest test suite for the following Python code.\n"
+                "IMPORTANT: The code is saved in a file called `main.py`. "
+                "All imports MUST use `from main import <name>` or `import main`.\n\n"
                 f"{code}\n\n"
                 "Requirements:\n"
-                "- Use pytest framework.\n"
-                "- Cover normal cases, edge cases, and error handling.\n"
-                "- Each test should have a clear and descriptive name.\n"
-                "- Do NOT modify the original code."
+                "- Use `pytest` framework.\n"
+                "- Use `@pytest.mark.parametrize` for data-driven tests where possible.\n"
+                "- Explicitly cover:\n"
+                "   1. Happy paths (standard inputs).\n"
+                "   2. Edge cases (boundary values, empty inputs).\n"
+                "   3. Negative cases (invalid inputs causing exceptions).\n"
+                "- If the code uses external APIs or files, use `unittest.mock` to mock them.\n"
+                "- Do NOT modify the original code.\n"
+                "- Output ONLY the Python test code, no explanations."
             ),
-            expected_output="A complete pytest module with multiple test functions.",
+            expected_output="A complete pytest module that imports from `main` and contains multiple test functions.",
             agent=agent
         )

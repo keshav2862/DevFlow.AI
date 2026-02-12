@@ -6,7 +6,7 @@ class ReviewerAgentFactory:
 
     def __init__(self):
         self.llm = LLM(
-            model="groq/llama-3.1-8b-instant",
+            model="groq/llama-3.3-70b-versatile",
             api_key=os.getenv("GROQ_API_KEY"),
             temperature=0.2,
             stream=True
