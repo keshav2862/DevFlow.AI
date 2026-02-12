@@ -1,5 +1,19 @@
 # ------------------------------------------------------------------------------
-import os, re, sys, zipfile, subprocess, io, tempfile, shutil, contextlib, html
+import os
+import threading
+import signal
+
+# -- PATCH: Fix for CrewAI signal handlers in Streamlit (thread) --
+if threading.current_thread() is not threading.main_thread():
+    DEFAULT_SIGNAL = signal.signal
+    def safe_signal(sig, handler):
+        try:
+            return DEFAULT_SIGNAL(sig, handler)
+        except ValueError:
+            pass  # Ignore signal errors in threads
+    signal.signal = safe_signal
+
+import re, sys, zipfile, subprocess, io, tempfile, shutil, contextlib, html
 import streamlit as st
 from dotenv import load_dotenv
 from crewai import Crew, Process
