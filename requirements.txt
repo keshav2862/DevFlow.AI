@@ -5,3 +5,4 @@ chromadb
 python-dotenv
 streamlit
 litellm
+pytest
