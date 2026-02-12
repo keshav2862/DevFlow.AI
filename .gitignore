@@ -1,0 +1,45 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+*~
+
+# Backup Files
+*.bak
+*_old.py
+*_new.py
+
+# User Generated Content (Optional - uncomment if you don't want to track generated projects)
+# projects/
+
+# Development Scripts
+reorganize*.py
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
